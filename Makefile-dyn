@@ -1,0 +1,30 @@
+# -L. указывает линковщику искать библиотеку в текущем каталоге
+# -lstrcrypt подключить библиотеку libstrcrypt к бинарнику
+# передать линковщику (-Wl) опцию rpath с - добавляет директорию, в которых ищутся динамические библиотеки 
+# PIC - Position Independent Code
+
+all: encoder decoder
+
+encoder: encoder.o libstrcrypt.so
+	gcc -o encoder encoder.o -L. -lstrcrypt -Wl,-rpath,.
+
+decoder: decoder.o libstrcrypt.so
+	gcc -o decoder decoder.o -L. -lstrcrypt -Wl,-rpath,.
+	
+encoder.o: encoder.c
+	gcc -c encoder.c
+
+decoder.o: decoder.c
+	gcc -c decoder.c
+	
+libstrcrypt.so: strutils.o encrypt.o
+	gcc -shared -o libstrcrypt.so strutils.o encrypt.o
+	
+strutils.o: strutils.c
+	gcc -c -fPIC strutils.c 
+	
+encrypt.o: encrypt.c
+	gcc -c -fPIC encrypt.c
+
+clean:
+	rm -rf *.o *.so encoder decoder
