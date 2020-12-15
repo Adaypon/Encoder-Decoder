@@ -1,0 +1,28 @@
+# -L. указывает линковщику искать библиотеку в текущем каталоге
+# -lstrcrypt подключить библиотеку libstrcrypt к бинарнику
+
+all: encoder decoder
+
+encoder: encoder.o libstrcrypt.a
+	gcc -o encoder encoder.o -L. -lstrcrypt 
+
+decoder: decoder.o libstrcrypt.a
+	gcc -o decoder decoder.o -L. -lstrcrypt
+	
+encoder.o: encoder.c
+	gcc -c encoder.c
+
+decoder.o: decoder.c
+	gcc -c decoder.c
+	
+libstrcrypt.a: strutils.o encrypt.o
+	ar cr libstrcrypt.a strutils.o encrypt.o
+	
+strutils.o: strutils.c
+	gcc -c strutils.c
+	
+encrypt.o: encrypt.c
+	gcc -c encrypt.c
+
+clean:
+	rm -rf *.o *.a encoder decoder
