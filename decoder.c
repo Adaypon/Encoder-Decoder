@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
 	char text[TEXT_SZ];
 	char key[KEY_SZ];
 	char ch;
-	int n = 0;
+	size_t i = 0, j = 0;
 	
 	if (argc == 1) {
 		printf("Input method of decrypt [-caesar|-xor]: ");
@@ -22,20 +22,20 @@ int main(int argc, char** argv) {
 		
 		ch = getchar();
 		printf("Input text: ");
-		while ((ch = getchar()) != '\n' && n < TEXT_SZ) {
-			text[n] = ch;
-			n++;
+		while ((ch = getchar()) != '\n' && i < TEXT_SZ-1) {
+			text[i] = ch;
+			i++;
 		}
-		text[n] = '\0';
+		text[i] = '\0';
 		
 		printf("Input key: ");
 		scanf("%s", key);
 	} else {
 		strcpy(method, argv[1]);
 		strcpy(text, argv[2]);
-		for (n = 3; n < argc-1; n++) {
+		for (j = 3; j < argc-1; j++) {
 			strcat(text, " ");
-			strcat(text, argv[n]);
+			strcat(text, argv[j]);
 		}
 		strcpy(key, argv[argc-1]);
 	}
@@ -55,18 +55,18 @@ int main(int argc, char** argv) {
 		}
 		
 		// check if every substring is a word
-		char* text_copy = (char *) malloc(sizeof(char) * (strlen(text) + 1));
-		strcpy(text_copy, text);
-		char* pch = strtok(text_copy, " ");
+		char* textCopy = (char *) malloc(sizeof(char) * (strlen(text) + 1));
+		strcpy(textCopy, text);
+		char* pch = strtok(textCopy, " ");
 		while (pch != NULL) {
 			if (!isWord(pch)) {
 				printf("Invalid caesar text: %s is not a word\n", pch);
-				free(text_copy);
+				free(textCopy);
 				return -2;
 			}
 			pch = strtok(NULL, " ");
 		}
-		free(text_copy);
+		free(textCopy);
 		
 		mutableEncryptCaesar(text, -(atoi(key)));
 	} else if (strcmp(method, "-xor") == 0) {
