@@ -12,7 +12,7 @@ void mutableEncryptCaesar(char* str, const int key) {
 	const int keyEdited = key % ENG_SZ;
 	bool upperFlag = false;
 	
-	for (i = 0; i < len; i++) {
+	for (i = 0; i < len; ++i) {
 		if (isalpha(str[i])) {
 			if (str[i] >= 'A' && str[i] <= 'Z') {
 				str[i] += 'a' - 'A';
@@ -48,7 +48,7 @@ char* immutableEncryptCaesar(const char* str, const int key) {
 	}
 	strcpy(res, str);
 	
-	for (i = 0; i < len; i++) {
+	for (i = 0; i < len; ++i) {
 		if (res[i] >= 'A' && res[i] <= 'Z') {
 			res[i] += 'a' - 'A';
 			upperFlag = true;
@@ -76,7 +76,7 @@ void mutableEncryptXOR(char* str, const char* key) {
 	const size_t len = strlen(str);
 	const size_t keyLen = strlen(key);
 		
-	for (i = 0; i < len; i++) {
+	for (i = 0; i < len; ++i) {
 		str[i] ^= key[i % keyLen];
 	}
 }
@@ -93,7 +93,7 @@ char* immutableEncryptXOR(const char* str, const char* key) {
 	}
 
 	
-	for (i = 0; i < len; i++) {
+	for (i = 0; i < len; ++i) {
 		res[i] = str[i] ^ key[i % keyLen];
 	}
 	res[len] = '\0';

@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 		printf("Input text: ");
 		while ((ch = getchar()) != '\n' && i < TEXT_SZ-1) {
 			text[i] = ch;
-			i++;
+			++i;
 		}
 		text[i] = '\0';
 		
@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 	} else {
 		strcpy(method, argv[1]);
 		strcpy(text, argv[2]);
-		for (j = 3; j < argc-1; j++) {
+		for (j = 3; j < argc-1; ++j) {
 			strcat(text, " ");
 			strcat(text, argv[j]);
 		}
