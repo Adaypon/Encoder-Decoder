@@ -32,7 +32,7 @@ char* immutableToUpper(const char* str) {
 			res[i] = str[i];
 		}
 	}
-	res[len] ='\0';
+	res[len] = '\0';
 	return res;
 }
 
@@ -66,7 +66,7 @@ char* immutableToLower(const char* str) {
 		}
 
 	}
-	res[len] ='\0';
+	res[len] = '\0';
 	return res;
 }
 
@@ -137,7 +137,7 @@ char* immutableStrip(const char* str) {
 
 
 void mutableStripAll(char* str) {
-	size_t i = 0, j;
+	size_t i = 0, j = 0;
 	size_t len = strlen(str);
 	
 	while (str[i] != '\0') {
@@ -161,7 +161,6 @@ char* immutableStripAll(const char* str) {
 		printf("immutableStripAll: malloc err - No memory\n");
 		exit(1);
 	}
-
 	
 	while (str[i] == ' ') { // searching for the beginning
 		 i++;
@@ -189,7 +188,7 @@ char* immutableStripAll(const char* str) {
 
 
 void mutableFilter(char* str) {
-	size_t i = 0, j;
+	size_t i = 0, j = 0;
 	size_t len = strlen(str);
 	
 	while (str[i] != '\0') {
@@ -214,7 +213,6 @@ char* immutableFilter(const char* str) {
 		exit(1);
 	}
 
-	
 	while (str[i] != '\0') {
 		if (!isalpha(str[i]) && !isdigit(str[i]) && !isspace(str[i])) {
 			i++;
@@ -242,10 +240,11 @@ bool isNumber(const char* str) {
 	const size_t len = strlen(str);
 	
 	for (i = 0; i < len; i++) {
-		if (!isdigit(str[i]))
-			return false; // False
+		if (!isdigit(str[i])) {
+			return false;
+		}
 	}
-	return true; // True
+	return true;
 }
 
 
@@ -254,8 +253,9 @@ bool isWord(const char* str) {
 	const size_t len = strlen(str);
 	
 	for (i = 0; i < len; i++) {
-		if (!isalpha(str[i]))
-			return false; // False
+		if (!isalpha(str[i])) {
+			return false;
+		}
 	}
-	return true; // True
+	return true;
 }

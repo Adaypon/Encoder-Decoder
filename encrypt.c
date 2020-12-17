@@ -4,31 +4,32 @@
 
 #include "encrypt.h"
 
+#define ENG_SZ 26
+
 void mutableEncryptCaesar(char* str, const int key) {
 	size_t i;
 	const size_t len = strlen(str);
-	const int ENG_SIZE = 26;
-	const int key_edited = key % ENG_SIZE;
-	bool upper_flag = false;
+	const int keyEdited = key % ENG_SZ;
+	bool upperFlag = false;
 	
 	for (i = 0; i < len; i++) {
 		if (isalpha(str[i])) {
 			if (str[i] >= 'A' && str[i] <= 'Z') {
 				str[i] += 'a' - 'A';
-				upper_flag = true;
+				upperFlag = true;
 			}
 			
-			if (str[i] + key_edited > 'z') {
+			if (str[i] + keyEdited > 'z') {
 				str[i] -= ('z' - 'a') + 1;
 			}
-			if (str[i] + key_edited < 'a') {
+			if (str[i] + keyEdited < 'a') {
 				str[i] += ('z' - 'a') + 1;
 			}
 			
-			str[i] += key_edited;
-			if (upper_flag) {
+			str[i] += keyEdited;
+			if (upperFlag) {
 				str[i] -= 'a' - 'A';
-				upper_flag = false;
+				upperFlag = false;
 			}
 		}
 	}
@@ -38,9 +39,8 @@ char* immutableEncryptCaesar(const char* str, const int key) {
 	size_t i;
 	const size_t len = strlen(str);
 	const size_t size = len + 1;
-	const int ENG_SIZE = 26;
-	const int key_edited = key % ENG_SIZE;
-	bool upper_flag = false;
+	const int keyEdited = key % ENG_SZ;
+	bool upperFlag = false;
 	char* res = (char *) malloc(size * sizeof(char));
 	if (res == NULL) {
 		printf("immutableEncryptCesar: No memory\n");
@@ -51,20 +51,20 @@ char* immutableEncryptCaesar(const char* str, const int key) {
 	for (i = 0; i < len; i++) {
 		if (res[i] >= 'A' && res[i] <= 'Z') {
 			res[i] += 'a' - 'A';
-			upper_flag = true;
+			upperFlag = true;
 		}
 		
-		if (res[i] + key_edited > 'z') {
+		if (res[i] + keyEdited > 'z') {
 			res[i] -= ('z' - 'a') + 1;
 		}
-		if (res[i] + key_edited < 'a') {
+		if (res[i] + keyEdited < 'a') {
 			res[i] += ('z' - 'a') + 1;
 		}
 		
-		res[i] += key_edited;
-		if (upper_flag) {
+		res[i] += keyEdited;
+		if (upperFlag) {
 			res[i] -= 'a' - 'A';
-			upper_flag = false;
+			upperFlag = false;
 		}
 	}		
 	return res;
@@ -74,10 +74,10 @@ char* immutableEncryptCaesar(const char* str, const int key) {
 void mutableEncryptXOR(char* str, const char* key) {
 	size_t i;
 	const size_t len = strlen(str);
-	const size_t key_len = strlen(key);
+	const size_t keyLen = strlen(key);
 		
 	for (i = 0; i < len; i++) {
-		str[i] ^= key[i % key_len];
+		str[i] ^= key[i % keyLen];
 	}
 }
 
@@ -85,7 +85,7 @@ char* immutableEncryptXOR(const char* str, const char* key) {
 	size_t i;
 	const size_t len = strlen(str);
 	const size_t size = len + 1;
-	const size_t key_len = strlen(key);
+	const size_t keyLen = strlen(key);
 	char* res = (char *) malloc(size * sizeof(char));
 	if (res == NULL) {
 		printf("immutableEncryptXOR: No memory\n");
@@ -94,8 +94,8 @@ char* immutableEncryptXOR(const char* str, const char* key) {
 
 	
 	for (i = 0; i < len; i++) {
-		res[i] = str[i] ^ key[i % key_len];
+		res[i] = str[i] ^ key[i % keyLen];
 	}
-	res[len] ='\0';
+	res[len] = '\0';
 	return res;
 }
