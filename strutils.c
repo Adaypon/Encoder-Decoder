@@ -16,23 +16,14 @@ void mutableToUpper(char* str) {
 }
 
 char* immutableToUpper(const char* str) {
-	size_t i;
-	const size_t len = strlen(str);
-	const size_t size = len + 1;
+	const size_t size = strlen(str) + 1;
 	char* res = (char *) malloc(size * sizeof(char));
 	if (res == NULL) {
-		printf("immutableToUpper: No memory\n");
+		printf("immutableToUpper: malloc err - No memory\n");
 		exit(1);
 	}
-	
-	for (i = 0; i < len; ++i) {
-		if (str[i] >= 'a' && str[i] <= 'z') {
-			res[i] = str[i] - ('a' - 'A');
-		} else {
-			res[i] = str[i];
-		}
-	}
-	res[len] = '\0';
+	strcpy(res, str);
+	mutableToUpper(res);
 	return res;
 }
 
@@ -49,24 +40,14 @@ void mutableToLower(char* str) {
 }
 
 char* immutableToLower(const char* str) {
-	size_t i;
-	const size_t len = strlen(str);
-	const size_t size = len + 1;
+	const size_t size = strlen(str) + 1;
 	char* res = (char *) malloc(size * sizeof(char));
 	if (res == NULL) {
-		printf("immutableToLower: No memory\n");
+		printf("immutableToLower: malloc err - No memory\n");
 		exit(1);
 	}
-
-	for (i = 0; i < len; ++i) {
-		if (str[i] >= 'A' && str[i] <= 'Z') {
-			res[i] = str[i] + ('a' - 'A');
-		} else {
-			res[i] = str[i];
-		}
-
-	}
-	res[len] = '\0';
+	strcpy(res, str);
+	mutableToLower(res);
 	return res;
 }
 
@@ -100,38 +81,14 @@ void mutableStrip(char* str) {
 }
 
 char* immutableStrip(const char* str) {
-	size_t i = 0, j = 0;
-	size_t len;
-	size_t begin = 0;
-	size_t end = strlen(str) - 1;
-		
-	while (str[begin] == ' ') {
-		if (str[begin + 1] == '\0') {
-				break;
-		}
-		++begin;
-	}
-	if (begin == end) { // empty str
-		len = 0;
-	} else {
-		while (str[end] == ' ') {
-			--end;
-		}
-		len = end - begin + 1;
-	}
-	
-	char* res = (char *) malloc((len + 1) * sizeof(char));
+	const size_t size = strlen(str) + 1;
+	char* res = (char *) malloc(size * sizeof(char));
 	if (res == NULL) {
 		printf("immutableStrip: malloc err - No memory\n");
 		exit(1);
 	}
-	
-	for (j = 0; j < len; ++j){
-		res[j] = str[begin + i];
-		++i;
-	}
-	res[len] = '\0';
-	
+	strcpy(res, str);
+	mutableStrip(res);
 	return res;
 }
 
@@ -153,36 +110,15 @@ void mutableStripAll(char* str) {
 	}
 }
 
-char* immutableStripAll(const char* str) {		
-	size_t i = 0, j = 0;
-	size_t size = 1;
+char* immutableStripAll(const char* str) {
+	const size_t size = strlen(str) + 1;
 	char* res = (char *) malloc(size * sizeof(char));
 	if (res == NULL) {
 		printf("immutableStripAll: malloc err - No memory\n");
 		exit(1);
 	}
-	
-	while (str[i] == ' ') { // searching for the beginning
-		++i;
-	}
-	while (str[i] != '\0') {
-		if (str[i] == ' ') {
-			++i;
-			continue;
-		}
-		res[j] = str[i];
-		++i;
-		++j;
-		if (j == size) {
-			++size;
-			res = (char *) realloc(res, size * sizeof(char));
-			if (res == NULL) {
-				printf("immutableStripAll: realloc err - No memory\n");
-				exit(1);
-			}
-		}
-	}
-	res[j] = '\0';
+	strcpy(res, str);
+	mutableStripAll(res);
 	return res;
 }
 
@@ -205,32 +141,14 @@ void mutableFilter(char* str) {
 }
 
 char* immutableFilter(const char* str) {
-	int i = 0, j = 0;
-	int size = 1;
+	const size_t size = strlen(str) + 1;
 	char* res = (char *) malloc(size * sizeof(char));
 	if (res == NULL) {
 		printf("immutableFilter: malloc err - No memory\n");
 		exit(1);
 	}
-
-	while (str[i] != '\0') {
-		if (!isalpha(str[i]) && !isdigit(str[i]) && !isspace(str[i])) {
-			++i;
-			continue;
-		}
-		res[j] = str[i];
-		++i;
-		++j;
-		if (j == size) {
-			++size;
-			res = (char *) realloc(res, size * sizeof(char));
-			if (res == NULL) {
-				printf("immutableFilter: realloc err - No memory\n");
-				exit(1);
-			}
-		}
-	}
-	res[j] = '\0';
+	strcpy(res, str);
+	mutableFilter(res);
 	return res;
 }
 

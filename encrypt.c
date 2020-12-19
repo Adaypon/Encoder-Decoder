@@ -36,37 +36,14 @@ void mutableEncryptCaesar(char* str, const int key) {
 }
 
 char* immutableEncryptCaesar(const char* str, const int key) {
-	size_t i;
-	const size_t len = strlen(str);
-	const size_t size = len + 1;
-	const int keyEdited = key % ENG_SZ;
-	bool upperFlag = false;
+	const size_t size = strlen(str) + 1;
 	char* res = (char *) malloc(size * sizeof(char));
 	if (res == NULL) {
-		printf("immutableEncryptCesar: No memory\n");
+		printf("immutableEncryptCaesar: malloc err - No memory\n");
 		exit(1);
 	}
 	strcpy(res, str);
-	
-	for (i = 0; i < len; ++i) {
-		if (res[i] >= 'A' && res[i] <= 'Z') {
-			res[i] += 'a' - 'A';
-			upperFlag = true;
-		}
-		
-		if (res[i] + keyEdited > 'z') {
-			res[i] -= ('z' - 'a') + 1;
-		}
-		if (res[i] + keyEdited < 'a') {
-			res[i] += ('z' - 'a') + 1;
-		}
-		
-		res[i] += keyEdited;
-		if (upperFlag) {
-			res[i] -= 'a' - 'A';
-			upperFlag = false;
-		}
-	}		
+	mutableEncryptCaesar(res, key);
 	return res;
 }
 
@@ -75,27 +52,20 @@ void mutableEncryptXOR(char* str, const char* key) {
 	size_t i;
 	const size_t len = strlen(str);
 	const size_t keyLen = strlen(key);
-		
+	
 	for (i = 0; i < len; ++i) {
 		str[i] ^= key[i % keyLen];
 	}
 }
 
 char* immutableEncryptXOR(const char* str, const char* key) {
-	size_t i;
-	const size_t len = strlen(str);
-	const size_t size = len + 1;
-	const size_t keyLen = strlen(key);
+	const size_t size = strlen(str) + 1;
 	char* res = (char *) malloc(size * sizeof(char));
 	if (res == NULL) {
-		printf("immutableEncryptXOR: No memory\n");
+		printf("immutableEncryptXOR: malloc err - No memory\n");
 		exit(1);
 	}
-
-	
-	for (i = 0; i < len; ++i) {
-		res[i] = str[i] ^ key[i % keyLen];
-	}
-	res[len] = '\0';
+	strcpy(res, str);
+	mutableEncryptXOR(res, key);
 	return res;
 }
