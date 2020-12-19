@@ -10,7 +10,13 @@
 void mutableEncryptCaesar(char* str, const int key);
 char* immutableEncryptCaesar(const char* str, const int key);
 
+void mutableDecryptCaesar(char* str, const int key);
+char* immutableDecryptCaesar(const char* str, const int key);
+
 void mutableEncryptXOR(char* str, const char* key);
 char* immutableEncryptXOR(const char* str, const char* key);
+
+void mutableDecryptXOR(char* str, const char* key);
+char* immutableDecryptXOR(const char* str, const char* key);
 
 #endif

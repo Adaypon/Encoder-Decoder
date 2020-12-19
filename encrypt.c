@@ -47,6 +47,14 @@ char* immutableEncryptCaesar(const char* str, const int key) {
 	return res;
 }
 
+void mutableDecryptCaesar(char* str, const int key) {
+	mutableEncryptCaesar(str, -key);
+}
+
+char* immutableDecryptCaesar(const char* str, const int key) {
+	return immutableEncryptCaesar(str, -key);
+}
+
 
 void mutableEncryptXOR(char* str, const char* key) {
 	size_t i;
@@ -68,4 +76,12 @@ char* immutableEncryptXOR(const char* str, const char* key) {
 	strcpy(res, str);
 	mutableEncryptXOR(res, key);
 	return res;
+}
+
+void mutableDecryptXOR(char* str, const char* key) {
+	mutableEncryptXOR(str, key);
+}
+
+char* immutableDecryptXOR(const char* str, const char* key) {
+	return immutableEncryptXOR(str, key);
 }

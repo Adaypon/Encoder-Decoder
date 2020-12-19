@@ -47,6 +47,7 @@ int main(int argc, char** argv) {
 	*/
 	
 	mutableToLower(method);
+	mutableStrip(text);
 	
 	if (strcmp(method, "-caesar") == 0) {
 		if (!isNumber(key)) {
@@ -68,9 +69,9 @@ int main(int argc, char** argv) {
 		}
 		free(textCopy);
 		
-		mutableEncryptCaesar(text, -(atoi(key)));
+		mutableDecryptCaesar(text, atoi(key));
 	} else if (strcmp(method, "-xor") == 0) {
-		mutableEncryptXOR(text, key);
+		mutableDecryptXOR(text, key);
 	} else {
 		printf("Invalid method flag\n");
 		return -3;
