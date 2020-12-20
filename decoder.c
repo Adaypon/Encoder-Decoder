@@ -16,6 +16,11 @@ int main(int argc, char** argv) {
 	char ch;
 	size_t i = 0, j = 0;
 	
+	if (argc != 1 && argc < 4) {
+		printf("Invalid number of arguments. Please try again\n");
+		return -1;
+	}
+	
 	if (argc == 1) {
 		printf("Input method of decrypt [-caesar|-xor]: ");
 		scanf("%s", method);
@@ -52,7 +57,7 @@ int main(int argc, char** argv) {
 	if (strcmp(method, "-caesar") == 0) {
 		if (!isNumber(key)) {
 			printf("Invalid caesar offset key: not a number\n");
-			return -1;
+			return -2;
 		}
 		
 		// check if every substring is a word
@@ -63,7 +68,7 @@ int main(int argc, char** argv) {
 			if (!isWord(pch)) {
 				printf("Invalid caesar text: %s is not a word\n", pch);
 				free(textCopy);
-				return -2;
+				return -3;
 			}
 			pch = strtok(NULL, " ");
 		}
@@ -74,7 +79,7 @@ int main(int argc, char** argv) {
 		mutableDecryptXOR(text, key);
 	} else {
 		printf("Invalid method flag\n");
-		return -3;
+		return -4;
 	}
 
 	printf("Decoded string: %s\n", text);
