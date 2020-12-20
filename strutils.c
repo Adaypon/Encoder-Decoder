@@ -56,25 +56,30 @@ void mutableStrip(char* str) {
 	size_t i;
 	size_t len;
 	size_t begin = 0;
-	size_t end = strlen(str) - 1;
+	size_t end = 0;
 	
-	while (str[begin] == ' ') {
-		if (str[begin + 1] == '\0') {
-				break;
-		}
-		++begin;
-	}
-	
-	if (begin == end) { // empty str
+	if (strlen(str) == 0) { // empty str
 		len = 0;
 	} else {
-		while (str[end] == ' ') {
-			--end;
+		end = strlen(str) - 1;
+		while (str[begin] == ' ') {
+			if (str[begin + 1] == '\0') {
+					break;
+			}
+			++begin;
 		}
+		
+		if (begin == end) { // only spaces in str
+			len = 0;
+		} else {
+			while (str[end] == ' ') {
+				--end;
+			}
 			
-		len = end - begin + 1;
-		for (i = 0; i < len; ++i) {
-			str[i] = str[begin + i]; // rewrite src
+			len = end - begin + 1;
+			for (i = 0; i < len; ++i) {
+				str[i] = str[begin + i]; // rewrite src
+			}
 		}
 	}
 	str[len] = '\0';
@@ -157,6 +162,10 @@ bool isNumber(const char* str) {
 	size_t i;
 	const size_t len = strlen(str);
 	
+	if (len == 0) {
+		return false;
+	}
+	
 	for (i = 0; i < len; ++i) {
 		if (!isdigit(str[i])) {
 			return false;
@@ -169,6 +178,10 @@ bool isNumber(const char* str) {
 bool isWord(const char* str) {
 	size_t i;
 	const size_t len = strlen(str);
+	
+	if (len == 0) {
+		return false;
+	}
 	
 	for (i = 0; i < len; ++i) {
 		if (!isalpha(str[i])) {
