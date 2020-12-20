@@ -4,12 +4,11 @@
 
 #include "encrypt.h"
 
-#define ENG_SZ 26
-
 void mutableEncryptCaesar(char* str, const int key) {
 	size_t i;
 	const size_t len = strlen(str);
-	const int keyEdited = key % ENG_SZ;
+	const static int EngSZ = 26;
+	const int keyEdited = key % EngSZ;
 	bool upperFlag = false;
 	
 	for (i = 0; i < len; ++i) {

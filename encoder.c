@@ -5,14 +5,14 @@
 #include "strutils.h"
 #include "encrypt.h"
 
-#define METHOD_SZ 10
-#define TEXT_SZ 256
-#define KEY_SZ 32
-
 int main(int argc, char** argv) {
-	char method[METHOD_SZ];
-	char text[TEXT_SZ];
-	char key[KEY_SZ];
+	const static int MethodSZ = 10;
+	const static int TextSZ = 256;
+	const static int KeySZ = 32;
+	
+	char method[MethodSZ];
+	char text[TextSZ];
+	char key[KeySZ];
 	char ch;
 	size_t i = 0, j = 0;
 	
@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 		
 		ch = getchar();
 		printf("Input text: ");
-		while ((ch = getchar()) != '\n' && i < TEXT_SZ-1) {
+		while ((ch = getchar()) != '\n' && i < TextSZ-1) {
 			text[i] = ch;
 			++i;
 		}
