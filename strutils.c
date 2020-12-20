@@ -102,17 +102,12 @@ void mutableStripAll(char* str) {
 	size_t i = 0, j = 0;
 	size_t len = strlen(str);
 	
-	while (str[i] != '\0') {
-		if (str[i] == ' ') {
-			for (j = i; j < len-1; ++j) {
-				str[j] = str[j+1]; // left shift
-			}
-			str[len-1] = '\0'; // close last symbol
-			--len;
-			continue;
+	for (i = 0; i < len; ++i) {
+		if (str[i] != ' ') {
+			str[j++] = str[i];
 		}
-		++i;
 	}
+	str[j] = '\0';
 }
 
 char* immutableStripAll(const char* str) {
@@ -132,17 +127,12 @@ void mutableFilter(char* str) {
 	size_t i = 0, j = 0;
 	size_t len = strlen(str);
 	
-	while (str[i] != '\0') {
-		if (!isalpha(str[i]) && !isdigit(str[i]) && !isspace(str[i])) {
-			for (j = i; j < len-1; ++j) {
-				str[j] = str[j+1]; // left shift
-			}
-			str[len-1] = '\0'; // close last symbol
-			--len;
-			continue;
+	for (i = 0; i < len; ++i) {
+		if (isalpha(str[i]) || isdigit(str[i]) || isspace(str[i])) {
+			str[j++] = str[i];
 		}
-		++i;
 	}
+	str[j] = '\0';
 }
 
 char* immutableFilter(const char* str) {
