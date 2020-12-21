@@ -149,14 +149,19 @@ char* immutableFilter(const char* str) {
 
 
 bool isNumber(const char* str) {
-	size_t i;
+	size_t i = 0;
 	const size_t len = strlen(str);
 	
 	if (len == 0) {
 		return false;
 	}
 	
-	for (i = 0; i < len; ++i) {
+	// sign check
+	if (str[i] == '+' || str[i] == '-') {
+		++i;
+	}
+	
+	for (; i < len; ++i) {
 		if (!isdigit(str[i])) {
 			return false;
 		}
