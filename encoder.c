@@ -6,13 +6,13 @@
 #include "encrypt.h"
 
 int main(int argc, char** argv) {
-	const static int MethodSZ = 10;
-	const static int TextSZ = 256;
-	const static int KeySZ = 32;
+	const int MethodSize = 10;
+	const int TextSize = 256;
+	const int KeySize = 32;
 	
-	char method[MethodSZ];
-	char text[TextSZ];
-	char key[KeySZ];
+	char method[MethodSize];
+	char text[TextSize];
+	char key[KeySize];
 	char ch;
 	size_t i = 0, j = 0;
 	
@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 		
 		ch = getchar();
 		printf("Input text: ");
-		while ((ch = getchar()) != '\n' && i < TextSZ-1) {
+		while ((ch = getchar()) != '\n' && i < TextSize-1) {
 			text[i] = ch;
 			++i;
 		}

@@ -7,8 +7,8 @@
 void mutableEncryptCaesar(char* str, const int key) {
 	size_t i;
 	const size_t len = strlen(str);
-	const static int EngSZ = 26;
-	const int keyEdited = key % EngSZ;
+	const int EngSize = 26;
+	const int keyEdited = key % EngSize;
 	bool upperFlag = false;
 	
 	for (i = 0; i < len; ++i) {
